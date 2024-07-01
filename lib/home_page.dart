@@ -25,30 +25,31 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              backgroundColor: Colors.yellow[300],
-              title: const Text('Add a new task'),
-              content: TextField(controller: inputController),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    setState(() {
-                      if (inputController.text.isNotEmpty) tasks.add(inputController.text);
-                      inputController.text = '';
-                    });
-                  },
-                  child: const Text('Add'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    inputController.text = '';
-                  },
-                  child: const Text('Cancel'),
-                ),
-              ],
-            ),
+            builder: (context) {
+              inputController.text = '';
+              return AlertDialog(
+                backgroundColor: Colors.yellow[300],
+                title: const Text('Add a new task'),
+                content: TextField(controller: inputController),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        if (inputController.text.isNotEmpty) tasks.add(inputController.text);
+                      });
+                    },
+                    child: const Text('Add'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                ],
+              );
+            },
           );
         },
         backgroundColor: Colors.yellow[600],
