@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:to_do_list/data/user_state.dart';
 import 'package:to_do_list/home_page.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserStateAdapter());
+  await Hive.openBox<UserState>('user_state');
+
   runApp(const MyApp());
 }
 
