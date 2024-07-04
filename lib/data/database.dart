@@ -3,7 +3,9 @@ import 'package:to_do_list/data/task.dart';
 import 'package:to_do_list/data/user_state.dart';
 
 class TasksDatabase {
-  // final _box = Hive.box<UserState>('user_state');
+  static String boxName = 'user_state';
+
+  final _box = Hive.box<UserState>(boxName);
 
   UserState userState = UserState();
 
@@ -17,12 +19,11 @@ class TasksDatabase {
   }
 
   void loadData() {
-    // userState = _box.get('user_state')!;
-    userState = UserState();
+    userState = _box.get(boxName)!;
   }
 
   void updateDatabase() {
-    // _box.put('tasks', userState);
+    _box.put(boxName, userState);
   }
 
   void addTask(String task) {
@@ -50,11 +51,11 @@ class TasksDatabase {
   }
 
   void init() {
-    // if (_box.get('user_state') == null) {
-    //   createInitialData();
-    // } else {
-    //   loadData();
-    // }
-    createInitialData();
+    if (_box.get(boxName) == null) {
+      createInitialData();
+    } else {
+      loadData();
+    }
+    // createInitialData();
   }
 }

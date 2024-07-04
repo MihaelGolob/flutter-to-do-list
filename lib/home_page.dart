@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             },
           );
         },
-        backgroundColor: Colors.yellow[600],
+        backgroundColor: Colors.yellow[300],
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),

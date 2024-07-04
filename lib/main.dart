@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:to_do_list/data/database.dart';
+import 'package:to_do_list/data/task.dart';
 import 'package:to_do_list/data/user_state.dart';
 import 'package:to_do_list/home_page.dart';
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserStateAdapter());
-  await Hive.openBox<UserState>('user_state');
+  Hive.registerAdapter(TaskAdapter());
+  await Hive.openBox<UserState>(TasksDatabase.boxName);
+
+  // change the color of the system (gesture) navigation bar
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.yellow[300],
+    ),
+  );
 
   runApp(const MyApp());
 }

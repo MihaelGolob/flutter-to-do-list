@@ -14,6 +14,12 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
+  void toggleTask() {
+    setState(() {
+      widget.db.toggleTask(widget.taskIndex);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,33 +36,32 @@ class _ListItemState extends State<ListItem> {
             ),
           ],
         ),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.yellow[100],
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Row(
-            children: [
-              Checkbox(
-                value: widget.db.getTask(widget.taskIndex).checked,
-                onChanged: (value) {
-                  setState(() {
-                    widget.db.toggleTask(widget.taskIndex);
-                  });
-                },
-                activeColor: Colors.black,
-              ),
-              Text(
-                widget.db.getTask(widget.taskIndex).text,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  decoration: widget.db.getTask(widget.taskIndex).checked ? TextDecoration.lineThrough : TextDecoration.none,
-                  decorationThickness: 3,
+        child: GestureDetector(
+          onTap: () => toggleTask(),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.yellow[100],
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Row(
+              children: [
+                Checkbox(
+                  value: widget.db.getTask(widget.taskIndex).checked,
+                  onChanged: (value) => toggleTask(),
+                  activeColor: Colors.black,
                 ),
-              ),
-            ],
+                Text(
+                  widget.db.getTask(widget.taskIndex).text,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    decoration: widget.db.getTask(widget.taskIndex).checked ? TextDecoration.lineThrough : TextDecoration.none,
+                    decorationThickness: 3,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
